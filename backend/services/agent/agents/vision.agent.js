@@ -9,18 +9,17 @@ export const visionAgent = async (state) => {
   await checkAgentLimit(state.userId,"image")
      const llm = await getModel("image");
   const res = await llm.invoke(`
-        Convert the user request into a short, simple image generation prompt (max 50 words).
-        Return only the prompt text, nothing else.
+        Convert this to a very short image prompt (max 15 words). Only return the prompt.
 
-        User Request:
         ${state.prompt}
         `);
 
   const prompt = res.content.trim();
 
+  const seed = Math.floor(Math.random() * 100000);
   const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(
     prompt
-  )}?width=1024&height=1024&nologo=true`;
+  )}?width=1024&height=1024&nologo=true&seed=${seed}`;
 
   let imageRes;
   for (let attempt = 0; attempt < 3; attempt++) {
