@@ -29,8 +29,7 @@ const ChatInput = () => {
   const [value, setValue] = useState("");
   const [selectedAgent, setSelectedAgent] = useState("Auto");
   const { selectedConversation } = useSelector((state) => state.conversation);
-        typing:false
-  const { messages,typing } = useSelector((state) => state.message);
+  const { messages, typing } = useSelector((state) => state.message);
   const [selectedFile, setSelectedFile] = useState(null);
   const [listening,setListening] = useState(false)
   const recognitionRef = useRef(null)
@@ -82,7 +81,7 @@ useEffect(() => {
   let transcript = "";
 
   for (
-    let index = event.resultIndex;
+    let index = 0;
     index < event.results.length;
     index++
   ) {
