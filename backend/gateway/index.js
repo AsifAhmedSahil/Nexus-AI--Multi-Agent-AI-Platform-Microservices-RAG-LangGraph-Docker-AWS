@@ -50,7 +50,7 @@ app.use(
 app.get("/api/me",protect,getCurrentUser)
 
 app.get("/",(req,res)=>{
-  res.json({message:"Hello from gateway v2"})
+  res.json({message:"Hello from gateway v3"})
 })
 
 app.listen(port,()=>{

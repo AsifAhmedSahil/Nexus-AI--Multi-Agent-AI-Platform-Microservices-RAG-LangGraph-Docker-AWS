@@ -130,6 +130,9 @@ jobs:
         with:
           node-version: 20
       - name: build-frontend
+        env:
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_SERVER_URL: ${{ secrets.VITE_SERVER_URL }}
         run: |
           cd frontend
           npm install
