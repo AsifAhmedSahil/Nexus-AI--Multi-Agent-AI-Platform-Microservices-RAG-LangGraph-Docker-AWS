@@ -9,25 +9,8 @@ export const visionAgent = async (state) => {
   await checkAgentLimit(state.userId,"image")
      const llm = await getModel("image");
   const res = await llm.invoke(`
-        You are an elite AI image prompt engineer.
-
-        Convert the user request into a highly detailed image generation prompt.
-
-        Requirements:
-
-        - Cinematic lighting
-        - Professional composition
-        - Ultra realistic
-        - High detail
-        - Beautiful color palette
-        - Sharp focus
-        - 8K quality
-        - Photorealistic
-        - Depth of field
-        - Professional photography
-        - Stunning visuals
-
-        Return only the image prompt
+        Convert the user request into a short, simple image generation prompt (max 50 words).
+        Return only the prompt text, nothing else.
 
         User Request:
         ${state.prompt}
