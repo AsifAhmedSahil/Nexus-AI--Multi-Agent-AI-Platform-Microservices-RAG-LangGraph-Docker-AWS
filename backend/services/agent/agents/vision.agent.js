@@ -39,7 +39,7 @@ export const visionAgent = async (state) => {
     prompt
   )}?width=1024&height=1024&nologo=true`;
 
-  const imageRes = await axios.get(imageUrl, { responseType: "arraybuffer" });
+  const imageRes = await axios.get(imageUrl, { responseType: "arraybuffer", timeout: 60000 });
   await deductCredits(state.userId,"vision")
 
   // Resolve the real content type & extension from the provider response.
