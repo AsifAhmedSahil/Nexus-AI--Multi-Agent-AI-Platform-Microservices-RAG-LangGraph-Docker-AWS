@@ -29,79 +29,59 @@ jobs:
 
       - name: Build Gateway
         run: |
-          docker build \
-            -f backend/gateway/Dockerfile \
-            -t gateway backend
+          docker build -f backend/gateway/Dockerfile -t gateway backend
 
       - name: tag Gateway
         run: |
-          docker tag gateway:latest \
-          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/gateway:latest
+          docker tag gateway:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/gateway:latest
       - name: push Gateway
         run: |
-          docker push \
-          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/gateway:latest
+          docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/gateway:latest
 
 
       - name: Build Auth
         run: |
-          docker build \
-            -f backend/services/auth/Dockerfile \
-            -t auth-service backend
+          docker build -f backend/services/auth/Dockerfile -t auth-service backend
 
       - name: tag auth 
         run: |
-          docker tag auth-service:latest \
-          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/auth-service:latest
+          docker tag auth-service:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/auth-service:latest
       - name: push auth 
         run: |
-          docker push \
-          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/auth-service:latest
+          docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/auth-service:latest
 
       - name: Build Chat
         run: |
-          docker build \
-            -f backend/services/chat/Dockerfile \
-            -t chat-service backend
+          docker build -f backend/services/chat/Dockerfile -t chat-service backend
 
       - name: tag chat
         run: |
-          docker tag chat-service:latest \
-          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/chat-service:latest
+          docker tag chat-service:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/chat-service:latest
       - name: push chat
         run: |
-          docker push \
-          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/chat-service:latest
+          docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/chat-service:latest
 
       - name: Build Agent
         run: |
-          docker build \
-            -f backend/services/agent/Dockerfile \
-            -t agent-service backend
+          docker build -f backend/services/agent/Dockerfile -t agent-service backend
 
       - name: tag agent
         run: |
-          docker tag agent-service:latest \
-          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/agent-service:latest
+          docker tag agent-service:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/agent-service:latest
       - name: push agent
         run: |
-          docker push \
-          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/agent-service:latest
+          docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/agent-service:latest
 
       - name: Build Billing
         run: |
-          docker build \
-            -f backend/services/billing/Dockerfile \
-            -t billing-service backend
+          docker build -f backend/services/billing/Dockerfile -t billing-service backend
 
       - name: tag billing
         run: |
-          docker tag billing-service:latest \
-          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/billing-service:latest
+          docker tag billing-service:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/billing-service:latest
       - name: push billing
         run: |
-          docker push \
-          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/billing-service:latest
+          docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/billing-service:latest
 
       
       - name: deploy gateway
