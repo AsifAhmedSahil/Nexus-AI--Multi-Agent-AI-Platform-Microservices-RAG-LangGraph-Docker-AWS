@@ -22,11 +22,20 @@ export const visionAgent = async (state) => {
     prompt
   )}?width=1024&height=1024&nologo=true`;
 
-  const imageRes = await axios.get(imageUrl, { responseType: "arraybuffer", timeout: 60000 });
+  let imageRes;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      imageRes = await axios.get(imageUrl, { responseType: "arraybuffer", timeout: 30000 });
+      break;
+    } catch (err) {
+      console.log(`Pollinations attempt ${attempt + 1} failed, retrying...`);
+      if (attempt === 2) throw err;
+      await new Promise(r => setTimeout(r, 2000));
+    }
+  }
+
   await deductCredits(state.userId,"vision")
 
-  // Resolve the real content type & extension from the provider response.
-  // (Pollinations returns JPEG by default, not PNG.)
   const contentType =
     imageRes.headers["content-type"]?.split(";")[0] || "image/png";
   const extension = contentType === "image/jpeg" ? "jpg" : "png";
@@ -37,21 +46,17 @@ export const visionAgent = async (state) => {
 
 return {
     ...state,
-    aiResponse: `
-
-
-![Generated Image](${downloadUrl})
+    aiResponse: `![Generated Image](${downloadUrl})
 
 [Download Image](${downloadUrl})
 
-Link expires in 24 hours.
-            `,
+Link expires in 24 hours.`,
   };
  } catch (error) {
-    console.error("Vision Agent Error:", error);
+    console.error("Vision Agent Error:", error.message);
     return{
         ...state,
-        aiResponse:error?.data?.message || "failed to generate vision image."
+        aiResponse:"Image generation service is currently unavailable. Please try again later."
       }
  }
 };
