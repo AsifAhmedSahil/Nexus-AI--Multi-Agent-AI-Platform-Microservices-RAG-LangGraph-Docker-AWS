@@ -30,7 +30,7 @@ export const getModel = async (agent) => {
             return groq;
 
         case "coding":
-            return openrouter;
+            return groq;
 
         case "imageAnalyzer":
             return gemini;
