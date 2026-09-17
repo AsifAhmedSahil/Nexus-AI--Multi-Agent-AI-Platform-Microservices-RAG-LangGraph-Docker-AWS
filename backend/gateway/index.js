@@ -47,6 +47,13 @@ app.use(
   proxyWithHeader(process.env.BILLING_SERVICE)
 );
 
+app.use(
+  "/api/billing/webhook",
+  proxy(process.env.BILLING_SERVICE, {
+    proxyReqOptDecorator: (proxyReqOpts) => proxyReqOpts,
+  })
+);
+
 app.get("/api/me",protect,getCurrentUser)
 
 app.get("/",(req,res)=>{
